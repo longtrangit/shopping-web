@@ -4,34 +4,42 @@ import Contact from './Logo/contact.jpg'
 import FAQ from './Logo/FAQ.jpg'
 import Shop from './Logo/shop.jpg'
 import About from './Logo/about.png'
+import { useState } from "react";
+import Button from "./Button/Button";
+
 
 const Sidebar = () => {
+
+    const [btns, setBtns] = useState([
+        { pic: Home, name: "Home", state: "" },
+        { pic: Contact, name: "Contact", state: "" },
+        { pic: FAQ, name: "FAQ", state: "" },
+        { pic: Shop, name: "Shop", state: "" },
+        { pic: About, name: "About", state: "" }])
+    const clickHandler = (index) => {
+
+        btns.map((btn) => {
+            setBtns(btn.state = "")
+        })
+        let clonedBtns = [...btns];
+        clonedBtns[index].state = "flex bg-gray-400 rounded-lg";
+        setBtns(clonedBtns)
+
+    }
+
     return (
-        <div className="flex flex-col items-stretch px-5">
-            <div className="flex self-center items-stretch py-5 ">
-                <img className="self-center object-contain h-5 w-5" src={Home} alt="home" />
-                <div className="self-center font-bhuTuka"> Home </div>
-            </div>
 
-            <div className="flex self-center items-stretch py-5 ">
-                <img className="self-center object-contain h-5 w-5" src={About} alt="about" />
-                <div className="self-center font-bhuTuka"> About </div>
-            </div>
+        <div className="flex flex-col px-5">
 
-            <div className="flex self-center items-stretch py-5 ">
-                <img className="self-center object-contain h-5 w-5" src={Shop} alt="shop" />
-                <div className="self-center font-bhuTuka"> Shop </div>
-            </div>
+            {btns.map((btn, index) => <Button
+                src={btn.pic}
+                btn={btn.state}
+                index={index}
+                name={btn.name}
+                btnClicked={clickHandler}
+            />
 
-            <div className="flex self-center items-stretch py-5 ">
-                <img className="self-center object-contain h-5 w-5" src={FAQ} alt="faq" />
-                <div className="self-center font-bhuTuka"> FAQ </div>
-            </div>
-
-            <div className="flex self-center items-stretch py-5">
-                <img className="self-center object-contain h-5 w-5" src={Contact} alt="contact" />
-                <div className="self-center font-bhuTuka"> Contact </div>
-            </div>
+            )}
 
         </div>
     )
